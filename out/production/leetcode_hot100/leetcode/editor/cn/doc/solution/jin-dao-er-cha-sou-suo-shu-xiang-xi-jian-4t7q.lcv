@@ -1,0 +1,130 @@
+[![](https://pic.leetcode-cn.com/1640530258-unHZvN-file_1640530258646 "关于我")](https://mp.weixin.qq.com/s/oFWyyYMaC0XCM2hIW2V8bA) [![](https://pic.leetcode-cn.com/1640530258-JzFwTe-file_1640530258650 "公众号")](https://gitee.com/goldknife6/README/raw/master/qr.png) [![](https://pic.leetcode-cn.com/1640530258-RCQisw-file_1640530258650 "知乎")](https://www.zhihu.com/people/zhangzhang626) [![](https://pic.leetcode-cn.com/1640530258-lXpwkm-file_1640530258651 "GitHub")](https://github.com/glodknife/algorithm)
+
+献上最喜欢的iu💘
+
+![image.png](https://pic.leetcode-cn.com/1641711173-zumrRV-image.png){:height="40%" width="40%"}
+
+### 值得做的二叉树系列专题
+
+|  原题  |  力扣解题  | 重点  |
+|  :---  |  ----  |  ----  |
+| [0112-路径总和](https://leetcode-cn.com/problems/path-sum/) | [链接](https://leetcode-cn.com/problems/path-sum/solution/jin-dao-di-gui-bfs-by-glodknife-dv69/) | 任意顺序遍历+BFS |
+| [0102-二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/) | [链接](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/jin-dao-di-gui-bian-li-bfs-by-glodknife-ydbd/) | 递归+BFS |
+| [0145-二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/) | [链接](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/jin-dao-er-cha-shu-hou-xu-bian-li-di-gui-2u8q/) | 后序遍历(递归+迭代) |
+| [0144-二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/) | [链接](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/jin-dao-er-cha-shu-xian-xu-bian-li-di-gu-13n2/) | 前序遍历(递归+迭代) |
+| [0199-二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/) | [链接](https://leetcode-cn.com/problems/binary-tree-right-side-view/solution/jin-dao-er-cha-shu-de-ceng-xu-bian-li-di-kx7t/) | BFS |
+| [0094-二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/) | [链接](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/jin-dao-er-cha-shu-zhong-xu-bian-li-di-g-y7ho/) | 中序遍历(递归+迭代) |
+| [0173-二叉搜索树迭代器](https://leetcode-cn.com/problems/binary-search-tree-iterator/) | [链接](https://leetcode-cn.com/problems/binary-search-tree-iterator/solution/jin-dao-di-gui-die-dai-liao-jie-duo-xing-6kp9/) | 中序遍历(递归+迭代) |
+| [0783-二叉搜索树节点最小距离](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/) | [链接](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/solution/jin-dao-zhong-xu-bian-li-di-gui-die-dai-xxyt6/) | 中序遍历(递归+迭代) |
+| [0230-二叉搜索树中第K小的元素](https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/) | [链接](https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/solution/jin-dao-zhong-xu-bian-li-di-gui-tong-yon-5t3x/) | 中序遍历(递归) |
+| [0285-二叉搜索树中的中序后继](https://leetcode-cn.com/problems/inorder-successor-in-bst/) | [链接](https://leetcode-cn.com/problems/inorder-successor-in-bst/solution/jin-dao-zhong-xu-bian-li-di-gui-die-dai-zvjfr/) | 中序遍历(递归+迭代) |
+| [0671-二叉树中第二小的节点](https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/) | [链接](https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/solution/jin-dao-liang-ge-fang-fa-de-di-gui-by-gl-raci/) | 中序遍历(递归) |
+| [0098-验证二叉搜索树](https://leetcode-cn.com/problems/validate-binary-search-tree/) | [链接](https://leetcode-cn.com/problems/validate-binary-search-tree/solution/jin-dao-er-cha-sou-suo-shu-xiang-xi-jian-4t7q/) | 中序遍历(递归) |
+
+## 题目解答
+
+我们发现二叉搜索树(也叫搜索二叉树)是递归定义的，我们从二叉搜索树的定义中可以分析出如下几个性质：
+- 如果左子树不为空，那么左子树中的所有节点都要小于根节点
+- 如果右子树不为空，那么右子树中的所有节点都要大于根节点
+- 左右子树也为二叉搜索树
+- 只有一个节点的树既是二叉树也是二叉搜索树
+
+有三种遍历二叉树的顺序，分别为*先序*、*中序*、*后序*，不论用哪一种方式遍历，最关键的一个地方就是如何去判断当前所访问的节点是否符合二叉搜索树的定义。
+
+![image.png](https://pic.leetcode-cn.com/1641710975-FuDYfX-image.png){:height="50%" width="50%"}
+
+如上图所示其蓝色所表示的只有一个根节点的左子树和红色表示的右子树单独拿出来也是二叉搜索树。这就意味着使用递归定义的数据结构可以用递归的方式来对其进行验证。另外，如下图所示，左子节点的取值范围在`(-∞，5)`区间时，右子节点的取值范围在`(5，+∞)`区间时，并且左右子树同样为二叉搜索树时，整个二叉树才符合二叉搜索树的定义。
+
+![image.png](https://pic.leetcode-cn.com/1641711003-UkQPcg-image.png)
+
+经过以上分析，就可以得出我们要判断一个二叉树是否是二叉搜索树的递归函数的要素
+- 终止条件
+  - 当前节点为null就终止了
+  - 当前节点不在取值范围中就终止
+- 递归函数做的事情是什么以及如何去做
+  - 判断当前节点是否符合二叉搜索树的定义
+    - 当前节点在正确的取值范围时，并且左右子树同样为二叉搜索树时才是二叉搜索树
+- 如何重复利用递归函数
+  - 递归调用当前函数，判断左右子节点是否是二叉搜索树
+
+### 方法一：递归(先序遍历)
+
+* java
+
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    public boolean isValidBST(TreeNode root, long min, long max) {
+        if (root == null) {
+            return true;
+        }
+        if (root.val <= min || root.val >= max) {
+            return false;
+        }
+        return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
+    }
+}
+```
+
+#### 复杂度分析
+
+- *时间复杂度*:O(n)
+- *空间复杂度*:为O(树的高度)
+
+#### 方法二：递归(中序遍历)
+
+在*二叉树的中序遍历* 讲过按中序遍历二叉树时的特点，在下图中使用中序遍历对二叉树进行遍历时，对节点的访问顺序为
+
+* 
+
+```
+a1 -> a -> a2 -> b -> c1 -> c -> c2
+```
+
+![image.png](https://pic.leetcode-cn.com/1641711047-mwiqcl-image.png){:height="50%" width="50%"}
+
+如果是二叉搜索树，那么对节点的访问顺序为应该为单调递增的，及
+
+* 
+
+```
+a1 < a < a2 < b < c1 < c < c2
+```
+
+我们可以利用这个特点，增加一个`last`指针用来保存上一个访问的节点来与当前节点进行判断
+- 如果当前节点大于前一个节点，说明满足二叉搜索树的定义，继续递归判断
+- 否则直接返回`false`
+
+#### 代码实现
+
+* java
+
+```java
+class Solution {
+    TreeNode last = null;
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (!isValidBST(root.left)) {
+            return false;
+        }
+        TreeNode tmp = last;
+        last = root;
+        return (tmp == null || tmp.val < last.val) && isValidBST(root.right);
+    }
+}
+```
+
+#### 复杂度分析
+
+- *时间复杂度*:O(n)
+- *空间复杂度*:为O(树的高度)
+
+## 其他
+
+- 💘最近正在制作「[图解大厂高频算法题](https://github.com/glodknife/algorithm)」，持续更新中~ ，其主旨为根据“二八法则”的原理，以付出20%的时间成本，获得80%的刷题的收益，让那些想进互联网大厂或心仪公司的人少走些弯路，欢迎关注~
+- 💘后台回复**刷题群**，欢迎一起[组队刷题](https://gitee.com/goldknife6/README/raw/master/qr.png)不孤单。
+

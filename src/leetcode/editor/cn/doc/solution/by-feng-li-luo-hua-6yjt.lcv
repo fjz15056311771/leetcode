@@ -1,0 +1,45 @@
+就是通过行， 列，正斜， 反斜四个数组来记录可不可以放。
+恢复现场技巧是动态规划中常见的做法，虽然这个题不是动态规划！
+
+* 
+
+```
+ public List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans = new ArrayList<>();
+        int[] row = new int[2 * n];
+        int[] col = new int[2 * n];
+        int[] zx = new int[2 * n];
+        int[] fx = new int[2 * n];
+        process(n, row, col, zx, fx, 0, n, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    private void process(int n, int[] row, int[] col, int[] zx, int[] fx, int i, int rest, List<String> cur, List<List<String>> ans) {
+        if(rest == 0){
+            ans.add(cur);
+        }
+        List<String> newCur;
+        StringBuilder temp = new StringBuilder();
+        for(int k = 0; k < n; k++){
+            temp.append(".");
+        }
+            for(int j = 0; j < n; j++){
+                if(row[i] == 0 && col[j] == 0 && zx[i + j] == 0 && fx[i + (n - 1 - j)] == 0){
+                    newCur = new ArrayList<>(cur);
+                    temp.setCharAt(j, 'Q');
+                    row[i] = 1;
+                    col[j] = 1;
+                    zx[i + j] = 1;
+                    fx[i + (n - 1 - j)] = 1;
+                    newCur.add(temp.toString());
+                    process(n, row, col, zx, fx, i + 1, rest - 1, newCur, ans);
+                    row[i] = 0;
+                    col[j] = 0;
+                    zx[i + j] = 0;
+                    fx[i + (n - 1 - j)] = 0;
+                    temp.setCharAt(j, '.');
+                }
+            }
+    }
+```
+

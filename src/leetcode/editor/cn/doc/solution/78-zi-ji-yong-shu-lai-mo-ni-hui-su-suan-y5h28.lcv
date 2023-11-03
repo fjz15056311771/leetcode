@@ -1,0 +1,43 @@
+回溯法
+* 做回溯算法的时候我们可以先画一个树。所有的回溯算法，都可以看作一棵树从根节点向下遍历的过程。我们以`nums = [1,2,3]`为例，此题的回溯所对应的树就应该如下。
+* **接下里我们观察要收集什么：** 要收集全部的子集，也就说每到了一个节点，都要进行收集。
+* **再观察递归处理的过程：**
+  * 观察第一层，分别为1、2、3，也就是说第一层要`从nums[0]开始遍历到结尾`。
+  * 观察1节点下的第二层，是2，3 （2节点下的第二层，是3）。 也就是说第二层要`从nums[1]遍历到结尾`
+  * 经过分析，我们发现下一层的遍历，是`从上一层的节点之后开始遍历到最后`。所以在递归的时候，我们要设置一个参数`start`，标记从哪开始遍历。
+
+详见代码注释。
+![在这里插入图片描述](https://pic.leetcode-cn.com/1635944874-XXuGht-file_1635944875586)
+完整代码：
+
+* java
+
+```java
+class Solution {
+	//存放结果
+    List<List<Integer>> res = new ArrayList<>();
+    //存放当前路径
+    List<Integer> path = new ArrayList<>();
+    
+    public List<List<Integer>> subsets(int[] nums) {
+        dfs(nums, 0);
+        return res;
+    }
+	
+	//start表示这次遍历从哪里开始
+    public void dfs(int[] nums, int start){
+    	//树之中的每个节点都要保存，所以我们一上来就直接添加到结果。
+        res.add(new ArrayList<>(path));
+        //从上一层的节点之后（start）开始遍历到结尾
+        for (int i = start; i < nums.length; i++){
+        	//添加到当前路径
+            path.add(nums[i]);
+            //从下一个节点开始，递归下一层
+            dfs(nums, i + 1);
+            //回溯
+            path.remove(path.size() - 1);
+        }
+    }
+}
+```
+

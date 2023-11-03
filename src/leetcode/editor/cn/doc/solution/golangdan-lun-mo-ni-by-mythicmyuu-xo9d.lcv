@@ -1,0 +1,29 @@
+* 
+
+```
+var dx = []int{0, 1, 0, -1}
+var dy = []int{1, 0, -1, 0}
+
+func isRobotBounded(instructions string) bool {
+	var dir, x, y int
+	for i := range instructions {
+		if instructions[i] == 'G' {
+			x += dx[dir]
+			y += dy[dir]
+		} else if instructions[i] == 'R' {
+			dir = (dir + 1) % 4
+		} else {
+			dir = (dir + 3) % 4
+		}
+	}
+	if x == 0 && y == 0 {
+		return true
+	}
+	if dir != 0 {
+		return true
+	}
+	return false
+}
+```
+
+机器人第一轮行动后的朝向有三种情况，向北，向南，向东或西（镜像抽象为一种）。首先如果第一轮结束后机器人仍然在原点，那么肯定是存在环的，其次考虑不在原点时假设机器人位移为x,y。如果向北那么无环，机器人会向x,y方向一直移动。如果向东，那么接下来的位移就是y,-x;-x,-y;-y,x可以发现在第四轮结束后就回到了原点，而如果向南则是-x,-y即直接回到原点。所以无环当且仅当第一轮后不在原点且方向仍然向北

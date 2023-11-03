@@ -1,0 +1,35 @@
+### 解题思路
+
+借鉴了“二叉搜索树的最近公共祖先”一题的思路。首先，根节点root一定是p和q的公共祖先。如果p和q都在root的左子树里，说明root可以再向下走一层，反之如果p和q分别在root的左右子树里，则root就是p和q的**最近**公共祖先。
+判断结点cur是否在root这棵树里，用到了深度优先搜索。
+
+### 代码
+
+* java
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) 
+    {
+        if(contain(root.left,p)&&contain(root.left,q)) return lowestCommonAncestor(root.left,p,q);
+        if(contain(root.right,p)&&contain(root.right,q)) return lowestCommonAncestor(root.right,p,q);
+        return root;
+    }
+    private boolean contain(TreeNode root, TreeNode cur)
+    {
+        if(root==null) return false;
+        if(root==cur) return true;
+        return contain(root.left,cur)||contain(root.right,cur);
+    }
+}
+```
+

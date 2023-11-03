@@ -1,0 +1,36 @@
+![【井冈山赵子龙】.png](https://pic.leetcode-cn.com/1645150354-rxDlBC-%E3%80%90%E4%BA%95%E5%86%88%E5%B1%B1%E8%B5%B5%E5%AD%90%E9%BE%99%E3%80%91.png)
+
+### 解题思路
+
+### 一句话讲明白:
+
+1. 中序遍历的顺序是左孩子, 父节点, 右孩子. 并且数值上 左孩子 < 父节点 < 右孩子
+2. 如果当前节点比前一次遍历的节点值还小或相等, 那么一定为false
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return false;
+
+        long pre = Long.MIN_VALUE;
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        while (!stk.isEmpty() || root != null) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
+            }
+            root = stk.pop();
+            if (root.val <= pre) return false;
+            pre = root.val; // 更新pre
+            root = root.right;
+        }
+        
+        return true;
+    }
+}
+```
+
